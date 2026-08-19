@@ -1,46 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define vll vector<ll>
 
-// ll fun(ll i, ll k, ll n, vector<ll>& a, vector<ll>& b,
-//        vector<unordered_map<ll,ll>>& dp){
+void fun(string s, set<string>& st){
 
-//     if(i >= n) return k;
+    if(s.empty()) return;
 
-//     if(dp[i].count(k))
-//         return dp[i][k];
+    st.insert(s);
+    string s1 = s, s2 = s;
+    s1.erase(0, 1);
+    s2.erase(1, 1);
 
-//     ll ta = fun(i+1, k - a[i], n, a, b, dp);
-//     ll tb = fun(i+1, b[i] - k, n, a, b, dp);
-
-//     return dp[i][k] = max(ta, tb);
-// }
+    fun(s1, st);
+    fun(s2, st);
+}
 
 int main(){
     int t;
     cin >> t;
-
     while(t--){
         ll n;
         cin >> n;
+        string s;
+        cin >> s;
 
-        vector<ll> a(n), b(n);
+        set<string> st;
+        fun(s, st);
 
-        for(int i=0; i<n; i++){
-            cin >> a[i];
-        }
-
-        for(int i=0; i<n; i++){
-            cin >> b[i];
-        }
-
-        vector<ll> c(n);
-        ll fans = 0;
-        for(int i=0; i<n; i++){
-            c[i] = max((0-a[i]), (b[i]-0));
-            fans += c[i];
-        }
-        
-        cout << fans << endl;
+        cout << st.size() << endl;
     }
 }
